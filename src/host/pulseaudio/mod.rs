@@ -647,7 +647,8 @@ fn make_record_buffer_attr(
             protocol::stream::BufferAttr {
                 // fragment_size controls the delivery chunk size for record
                 // streams; target_length is playback-only and is ignored here.
-                max_length: len,
+                // max_length stays at the server's maximum: a reader that
+                // stalls longer than one fragment would otherwise lose audio.
                 fragment_size: len,
                 ..Default::default()
             }
